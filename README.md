@@ -7,8 +7,7 @@ For quick access, the server can be viewed [here](https://secret-everglades-3441
 
 You may also download the API yourself:
 First, clone the repository:
-`git clone https://github.com/Hrithvik-Alex/shopify-intern-challenge`  
-
+`git clone https://github.com/Hrithvik-Alex/shopify-backend-intern-challenge.git`  
 Then, install all the dependencies and run the server:
 
 `npm install` 
