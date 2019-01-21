@@ -23,7 +23,12 @@ const CartType = new GraphQLObjectType({
         products: {
             type: new GraphQLList(ProductType),
             resolve: (parent, args) => {
-                Product.find({id: parent.products.id});
+                let cartProducts = [];
+                parent.products.forEach(product => {
+                  let foundProduct = Product.findById(product.id);
+                  cartProducts.push(foundProduct);
+                });
+                return cartProducts;
             }
         }
     }) 

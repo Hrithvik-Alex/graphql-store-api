@@ -30,14 +30,17 @@ const Mutation = new GraphQLObjectType({
             args: {
                 id: {type: new GraphQLNonNull(GraphQLID)}
             },
-            resolve: (parent, args) => {
-                return Product.deleteOne({id: args.id});
+            resolve: async (parent, args) => {
+                let product = await Product.findById(args.id);
+                product.remove();
+                return null;
             }
         },
         clearProducts: { // deletes all products
-            type: new GraphQLList(ProductType),
-            resolve: (parent, args) => {
-                return Product.deleteMany({ });
+            type: ProductType,
+            resolve: async (parent, args) => {
+                await Product.remove({});
+                return null;
             }
         },
         createCart: { // initializes cart object
@@ -56,26 +59,25 @@ const Mutation = new GraphQLObjectType({
             args: {
                 cartId: {type: new GraphQLNonNull(GraphQLID)},
                 productId: {type: new GraphQLNonNull(GraphQLID)},
-                quantity: {type: new GraphQLNonNull(GraphQLInt)}
             },
             resolve: async (parent, args) => {
                 let product = await Product.findById(args.productId);
-                let quantity = args.quantity;
-                let totalProductPrice = product.price * quantity;
                 if(product.inventory_count<=0){
                     throw new Error(`Cart Adding Error: product is out of stock`);
                 }
-                if(args.quantity > product.inventory_count){
-                    throw new Error(`Cart Adding Error: Only ${product.inventory_count} units left`);
-                }
-                return Cart.findOneAndUpdate(
-                   args.cartId,
-                   { 
-                        $inc: {size: quantity},
-                        $inc: {total_value: totalProductPrice},
-                        $push: {products: product}
-                   }
-                );
+                let cart = await Cart.findById(args.cartId);
+                await cart.update({ 
+                            $inc: {total_value: product.price, size: 1},
+                            $push: {products: product}
+                       });
+                return cart;
+                // return Cart.findOneAndUpdate(
+                //    args.cartId,
+                //    { 
+                //         $inc: {total_value: product.price, size: 1},
+                //         $push: {products: product}
+                //    }
+                // );
             }
         },
         checkoutCart: { // checks out cart: checks if cart is empty, or if items in cart are sold out before completing action
@@ -85,20 +87,28 @@ const Mutation = new GraphQLObjectType({
             },
             resolve: async (parent, args) => {
                 let cart = await Cart.findById(args.id);
+                if(!cart){
+                    throw new Error(`Checkout Error: couldn't find cart`)
+                }
                 let products = cart.products;
+                console.log(products.length);
                 if(!products.length){
                     throw new Error(`Checkout Error: cart is empty`);
                 }
-                for(product in products){
-                    if(product.inventory_count <= 0){
+
+                for( i = 0; i < products.length; i++) {
+                    console.log(products[i]);
+                    if(products[i].inventory_count <= 0){
                         throw new Error(`Checkout Error: item is out of stock`);
                     }
-                    await product.updateOne({
-                        $inc: {inventory_count: -1}
-                    });
-                }
+
+                   let product = await Product.findById(products[i].id);
+                   await product.update(
+                       { $inc: {inventory_count: -1}} 
+                       );
+                };
           
-                Cart.deleteOne({id: cart.id});
+                cart.remove();
                 return null;
             } 
         }

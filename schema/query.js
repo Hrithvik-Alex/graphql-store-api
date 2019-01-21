@@ -44,3 +44,48 @@ const RootQuery = new GraphQLObjectType({
 });
 
 module.exports = RootQuery;
+
+
+
+
+
+
+
+// let cart = await Cart.findById(args.id);
+                // if(!cart){
+                //     throw new Error(`Checkout Error: couldn't find cart`)
+                // }
+                // let products = cart.products;
+                // console.log(products.length);
+                // if(!products.length){
+                //     throw new Error(`Checkout Error: cart is empty`);
+                // }
+                // // let productFrequency = {};
+                // // products.forEach(product => {
+                // //     let id = product.id
+                // //     productFrequency[id] = (productFrequency[id]==0) ? 0 : productFrequency[id]++;
+                // // });
+
+                // // let freqs = Object.keys(productFrequency);
+
+                // // freqs.forEach(freq => {
+                // //     let productFreq = productFrequency[freq];
+
+                // // })
+
+                // for( i = 0; i < products.length; i++) {
+                //     if(product.inventory_count <= 0){
+                //         throw new Error(`Checkout Error: item is out of stock`);
+                //     }
+                    
+
+                //     await Product.findOneAndUpdate(
+                //         product.id,
+                //         {
+                //         $inc: {inventory_count: -1}
+                //         }
+                //     );
+                // };
+          
+                // cart.remove();
+                // return null;
