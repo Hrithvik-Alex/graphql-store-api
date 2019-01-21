@@ -31,7 +31,7 @@ app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: true
 }))
-
-app.listen(4000, () =>
-  console.log(`🚀 Server ready at port 4000`)
+const port = process.env.PORT || 4000;
+app.listen(port, () =>
+  console.log(`🚀 Server ready at port ${port}`)
 )

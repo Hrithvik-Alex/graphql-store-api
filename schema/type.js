@@ -2,14 +2,13 @@ const graphql = require('graphql');
 const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLFloat, GraphQLID, GraphQLList, GraphQLNonNull } = graphql;
 const Product = require('../model/product');
 
-
 // product object
 const ProductType = new GraphQLObjectType({ 
     name: 'Product',
     fields: () => ({
         id: { type: new GraphQLNonNull(GraphQLID) },
         title: {type: new GraphQLNonNull(GraphQLString)},
-        price: {type: GraphQLFloat},
+        price: {type: new GraphQLNonNull(GraphQLFloat)},
         inventory_count: {type: GraphQLInt}
     }) 
 })

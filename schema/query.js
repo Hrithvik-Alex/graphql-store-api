@@ -11,14 +11,14 @@ const RootQuery = new GraphQLObjectType({
             type: ProductType,
             args: {id: {type: GraphQLID}},
             resolve: (parent, args) => {
-                return Product.findById({id: args.id});
+                return Product.findById(args.id);
             }
         },
         cart: { // returns cart by querying id
             type: CartType,
             args: {id: {type: GraphQLID}},
             resolve: (parent, args) => {
-                return Cart.findById({id: args.id});
+                return Cart.findById(args.id);
             }
         },
         products: { // returns all products
