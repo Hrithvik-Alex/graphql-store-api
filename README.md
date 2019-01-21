@@ -96,6 +96,6 @@ The API supports the following mutations:
 | deleteProduct | `id`: String | Deletes the specified product by ID|
 | clearProducts | none | Wipes all products |
 | createCart | none | Initializes a cart |
-| addProductToCart | `input` : {<br >`cartId`: String <br>  `productId`: String} | Adds product specified by ID to cart specified by ID |
+| addProductToCart | `input` : {<br >`cartId`: String <br>  `productId`: String<br>} | Adds product specified by ID to cart specified by ID |
 | checkoutCart | `Id`: String | checkouts cart, and removes product inventory accordingly |
 
