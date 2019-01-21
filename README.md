@@ -3,11 +3,11 @@
 This is my submission for the Summer 2019 backend intern challenge. I used GraphQL and Node.js to create the backend logic, and MongoDB to handle the database. I chose to use GraphQL as I love to learn new technologies, and I had always heard of the wonders of GraphQL over traditional REST APIs. 
 
 ## Getting Started:
-For quick access, the server can be viewed [here](https://shopify-s19.herokuapp.com).
+For quick access, the server can be viewed [here](https://secret-everglades-34416.herokuapp.com/graphql).
 
 You may also download the API yourself:
 First, clone the repository:
-`git clone https://github.com/ShehryarX/shopify-intern-challenge`  
+`git clone https://github.com/Hrithvik-Alex/shopify-intern-challenge`  
 
 Then, install all the dependencies and run the server:
 
